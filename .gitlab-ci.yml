@@ -25,42 +25,44 @@ deploy:
   # deploy library to npm
   script:
     # get the version numbers from the package.json files in both branches
-    git fetch
-    develop_version=$(git show develop:package.json | grep version | cut -d'"' -f4)
-    main_version=$(git show main:package.json | grep version | cut -d'"' -f4)
+    - git fetch
+    - develop_version=$(git show develop:package.json | grep version | cut -d'"' -f4)
+    - main_version=$(git show main:package.json | grep version | cut -d'"' -f4)
 
     # use the version number from the develop branch in the main branch
-    version=$develop_version;
+    - version=$develop_version
 
     # check out the develop branch to update the version number
-    git checkout develop;
+    - git checkout develop
 
     # if the develop version is higher than the main version, do not update the version number
-    if [[ "$(npx semver compare $main_version $develop_version)" -eq "-1" ]]; then
-      echo "Using the library version in the develop branch because it higher than in the main branch."
-    else
-      echo "Updating the library version in the develop branch."
-      # increment patch version number in the develop branch
-      version=$(npm version patch);
-      # create new git tag with the version
-      git tag -a "v$version" -m "Version $version";
-      # push the tag to the develop branch
-      git push --follow-tags;
-    fi
+    - if [[ "$(npx semver compare $main_version $develop_version)" -eq "-1" ]]; then
+        echo "Using the library version in the develop branch because it higher than in the main branch."
+      else
+        echo "Updating the library version in the develop branch."
+        version=$(npm version patch);
+        git tag -a "v$version" -m "Version $version"
+        git push --follow-tags
+      fi
 
     # switch to the main branch
-    git checkout main;
-    # merge the develop branch into it
-    git merge --no-ff develop -m "Merge develop to main with v$version";
-    # push the merged changes to the main branch
-    git push origin main;
+    - git checkout main
+
+    # merge the develop branch into main
+    - git merge --no-ff develop -m "Merge develop to main with v$version"
+
+    # push the merged changes to the remote main branch
+    - git push origin main
 
     # authenticate with npm
-    echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc;
-    npm login --registry=https://registry.npmjs.org/;
+    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
+    - npm login --registry=https://registry.npmjs.org/
+
     # publish library to npm
-    npm publish;
+    - npm publish
+
     # tag the merged changes with the version number
-    git tag -a "v$version" -m "Version $version";
-    # push the tag to the main branch
-    git push origin "v$version"
+    - git tag -a "v$version" -m "Version $version"
+
+    # push the tag to the remote main branch
+    - git push origin "v$version"
