@@ -12,7 +12,7 @@ build:
     - npm run build
   # add tag for shared runners
   tags:
-    - docker
+    - packager
 
 test:
   stage: test
@@ -21,7 +21,7 @@ test:
     - npm test
   # add tag for shared runners
   tags:
-    - docker
+    - packager
 
 deploy:
   stage: deploy
@@ -74,4 +74,4 @@ deploy:
     - git push origin "v$version"
   # add tag for shared runners
   tags:
-    - docker
+    - packager
