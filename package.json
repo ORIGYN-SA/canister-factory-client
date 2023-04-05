@@ -1,0 +1,39 @@
+{
+  "name": "@origyn/canister-factory-client",
+  "version": "1.0.0-alpha.0",
+  "description": "TypeScript client library for interacting with the Origyn `Canister Factory` canister on the Internet Computer.",
+  "author": "ORIGYN Foundation",
+  "license": "Apache-2.0",
+  "keywords": [
+    "origyn",
+    "internet computer",
+    "typescript",
+    "canister factory",
+    "canister factory client",
+    "canister factory typescript client",
+    "canister factory javascript client"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npm run clean && npm run lint && npm run compile",
+    "test": "npm run build && jest --config jestconfig.json",
+    "lint": "tslint -p tsconfig.json",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -b tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.8",
+    "jest": "^28.1.3",
+    "prettier": "^2.8.3",
+    "semver": "^7.3.8",
+    "ts-jest": "^28.0.8",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.9.4"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
