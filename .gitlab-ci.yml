@@ -10,12 +10,18 @@ build:
   script:
     - npm ci
     - npm run build
+  # add tag for shared runners
+  tags:
+    - docker
 
 test:
   stage: test
   # run tests
   script:
     - npm test
+  # add tag for shared runners
+  tags:
+    - docker
 
 deploy:
   stage: deploy
@@ -37,12 +43,12 @@ deploy:
 
     # if the develop version is higher than the main version, do not update the version number
     - if [[ "$(npx semver compare $main_version $develop_version)" -eq "-1" ]]; then
-        echo "Using the library version in the develop branch because it higher than in the main branch."
+      echo "Using the library version in the develop branch because it higher than in the main branch."
       else
-        echo "Updating the library version in the develop branch."
-        version=$(npm version patch);
-        git tag -a "v$version" -m "Version $version"
-        git push --follow-tags
+      echo "Updating the library version in the develop branch."
+      version=$(npm version patch);
+      git tag -a "v$version" -m "Version $version"
+      git push --follow-tags
       fi
 
     # switch to the main branch
@@ -66,3 +72,6 @@ deploy:
 
     # push the tag to the remote main branch
     - git push origin "v$version"
+  # add tag for shared runners
+  tags:
+    - docker
