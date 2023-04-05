@@ -12,7 +12,7 @@ npm i @origyn/canister-factory-client
 
 ## Usage
 
-### Importing the library
+### Importing the Library
 
 **_TypeScript and ES6 Modules_**
 
