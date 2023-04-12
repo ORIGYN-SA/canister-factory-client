@@ -1,0 +1,6 @@
+#!/usr/bin/expect -f
+set timeout -1
+
+# Wait for the prompt and send "yes"
+expect "Do you want to proceed? yes/No" { send "yes\r" }
+interact

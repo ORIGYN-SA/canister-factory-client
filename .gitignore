@@ -1,2 +1,5 @@
 node_modules
 dist
+
+# identity private key files
+**/*.pem

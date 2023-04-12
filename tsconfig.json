@@ -18,7 +18,8 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "ES2021",
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "allowJs": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*", "**/idls/*"]

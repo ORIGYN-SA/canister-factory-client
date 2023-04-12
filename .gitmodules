@@ -1,0 +1,3 @@
+[submodule "canister_factory"]
+	path = canister_factory
+	url = https://gitlab.origyn.ch/origyn/engineering/proprietary/canister_factory
